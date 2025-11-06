@@ -116,3 +116,47 @@
   font-size: 18px;
   line-height: 5px;
 }
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin: 24px 0 8px;
+  font-family: inherit;
+}
+
+.page-btn {
+  min-width: 36px;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #111827;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.page-btn:hover:not(:disabled) {
+  background: #f3f4f6;
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 현재 페이지(빨간 사각형 느낌) */
+.page-btn.active {
+  background: #8b0000; /* 다크레드 */
+  color: #fff;
+  border-color: #8b0000;
+  font-weight: 700;
+}
+
+/* 좁은 화면에서 버튼 줄바꿈 방지 */
+.pagination {
+  flex-wrap: wrap;
+}
