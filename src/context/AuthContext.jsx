@@ -37,7 +37,7 @@ export default function AuthProvider({ children }) {
   const login = async (username, password) => {
     localStorage.setItem(LS_KEY, JSON.stringify({ username, password }));
     try {
-      await api.post("/admin/me", { id: username, password });
+      await api.post("/api/admin/me", { id: username, password });
       setUser({ username });
     } catch (e) {
       localStorage.removeItem(LS_KEY);
