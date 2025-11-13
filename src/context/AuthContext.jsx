@@ -19,7 +19,7 @@ export default function AuthProvider({ children }) {
         if (!saved) return;
         const { username, password } = JSON.parse(saved);
         await api.post(
-          "/admin/me",
+          "/api/admin/me",
           { id: username, password },
           {
             headers: { "Content-Type": "application/json" },
