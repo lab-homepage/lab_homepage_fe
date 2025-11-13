@@ -1,12 +1,16 @@
 import axios from "axios";
 
-const baseURL = process.env.REACT_APP_API_BASE_URL;
+const baseURL =
+  process.env.NODE_ENV === "production"
+    ? "http://13.210.0.69:8080"
+    : process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
 
 const api = axios.create({
-  baseURL: baseURL?.replace(/\/$/, ""), // 끝 슬래시 제거
-  withCredentials: false, // 쿠키 인증 쓸 때만 true
+  baseURL: baseURL.replace(/\/$/, ""), // 끝 슬래시 제거
+  withCredentials: false,
   headers: {
     Accept: "application/json",
+    "Content-Type": "application/json",
   },
 });
 
