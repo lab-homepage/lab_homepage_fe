@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import api from "../../../config/api";
 
 const membersStyles = `
-/* 기존 스타일은 그대로 두고, 업로드/미리보기 조금만 추가 */
 .admin-form { 
   display:flex; 
   flex-direction:column; 
