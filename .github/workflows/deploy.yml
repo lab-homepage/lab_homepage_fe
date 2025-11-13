@@ -36,8 +36,7 @@ jobs:
             docker build -t lab_frontend .
 
             # 기존 컨테이너 있으면 종료 & 삭제
-            docker stop lab_frontend || true
-            docker rm lab_frontend || true
+            docker ps -aq --filter "name=lab_frontend" | xargs -r docker rm -f
 
             # 새 컨테이너 실행 (호스트 포트 80으로 오픈)
             docker run -d --name lab_frontend -p 80:80 lab_frontend
