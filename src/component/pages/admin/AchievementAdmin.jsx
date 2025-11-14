@@ -390,7 +390,7 @@ export default function AchievementsAdmin() {
 
     const valid = picked.filter((f) => {
       if (!f.type.startsWith("image/")) return false;
-      if (f.size > 5 * 1024 * 1024) return false;
+      if (f.size > 50 * 1024 * 1024) return false;
       return true;
     });
     if (valid.length !== picked.length) {
