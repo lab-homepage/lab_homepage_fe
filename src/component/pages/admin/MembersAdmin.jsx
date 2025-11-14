@@ -203,10 +203,29 @@ export default function MembersAdmin() {
 
   const fetchList = async () => {
     try {
-      const res = await api.get("/admin/researchers", {
+      console.log("[MembersAdmin] baseURL =", api?.defaults?.baseURL);
+
+      let res = await api.get("/researchers", {
         headers: { Accept: "application/json" },
         validateStatus: () => true,
       });
+
+      if (typeof res.data === "string" && /^\s*</.test(res.data)) {
+        const ABS =
+          (typeof import.meta !== "undefined"
+            ? import.meta.env?.VITE_API_BASE_URL
+            : process.env?.REACT_APP_API_BASE_URL) || "";
+        if (ABS) {
+          console.warn(
+            "[MembersAdmin] fallback to ABS GET",
+            `${ABS}/researchers`
+          );
+          res = await api.get(`${ABS.replace(/\/$/, "")}/researchers`, {
+            headers: { Accept: "application/json" },
+            validateStatus: () => true,
+          });
+        }
+      }
 
       if (typeof res.data === "string") {
         throw new Error(
