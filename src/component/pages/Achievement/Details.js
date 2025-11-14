@@ -36,42 +36,11 @@ const FancyList = styled.ol`
   list-style: none;
   margin: 0;
   padding: 0;
-  counter-reset: item;
-
   > li {
-    position: relative;
-    counter-increment: item;
-    padding-left: 40px;
     margin: 10px 0;
-  }
-
-  /* 동그란 번호 뱃지 */
-  > li::before {
-    content: counter(item);
-    position: absolute;
-    left: 0;
-    top: 2px;
-    width: 26px;
-    height: 26px;
-    border-radius: 9999px;
-    border: 2px solid #111827;
-    color: #111827;
-    background: #fff;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    display: grid;
-    place-items: center;
-  }
-
-  /* 리스트 항목 사이 얇은 구분선 (선택) */
-  > li + li {
-    border-top: 1px dashed #e5e7eb;
-    padding-top: 12px;
-    margin-top: 12px;
   }
 `;
 
-/* 본문 섹션 제목/설명(선택) */
 const SectionTitle = styled.h3`
   font-size: 16px;
   font-weight: 700;
