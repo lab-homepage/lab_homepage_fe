@@ -252,7 +252,6 @@ export default function MembersAdmin() {
     setUploadPct(0);
 
     const fd = new FormData();
-    // 텍스트 필드: 서버 DTO 이름과 정확히 일치
     fd.append("name", form.name ?? "");
     fd.append("engName", form.engName ?? "");
     fd.append("grade", form.grade ?? "");
@@ -272,7 +271,6 @@ export default function MembersAdmin() {
         if (!ev.total) return;
         setUploadPct(Math.round((ev.loaded * 100) / ev.total));
       },
-      // FormData는 Content-Type 자동 설정(절대 수동 지정 X)
     };
 
     if (editing?.id) {
