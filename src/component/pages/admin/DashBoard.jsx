@@ -14,8 +14,8 @@ export default function Dashboard() {
     const boot = async () => {
       try {
         const [ach, mem] = await Promise.all([
-          api.get("/achievements"),
-          api.get("/researchers"),
+          api.get("/api/achievements"),
+          api.get("/api/researchers"),
         ]);
 
         const achArray = ach.data.items || ach.data || [];
