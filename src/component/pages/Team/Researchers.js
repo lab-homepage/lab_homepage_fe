@@ -24,7 +24,7 @@ export default function Researchers() {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
 
-  const FILE_BASE = "http://192.168.0.8:8080";
+  const FILE_BASE = "http://13.210.0.69:8080";
   const toImgSrc = (u) => {
     if (!u) return "/images/member/default.jpg";
     if (/^https?:\/\//i.test(u)) return u;

@@ -6,7 +6,7 @@ import api from "../../../config/api.js";
 
 function News() {
   const [newsList, setNewsList] = useState([]);
-  const FILE_BASE = "http://192.168.0.8:8080";
+  const FILE_BASE = "http://13.210.0.69:8080";
 
   //pagination
   const PAGE_SIZE = 5; // 한 페이지에 5개
