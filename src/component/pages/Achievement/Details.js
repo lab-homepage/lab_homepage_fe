@@ -102,7 +102,7 @@ export default function Details() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await api.get(`/achievements/${id}`);
+        const { data } = await api.get(`/api/achievements/${id}`);
         setDetail(data?.data || data);
       } finally {
         setLoading(false);
