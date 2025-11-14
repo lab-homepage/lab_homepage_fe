@@ -84,8 +84,7 @@ export default function Details() {
   const [detail, setDetail] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const FILE_BASE = (api?.defaults?.baseURL || "").replace(/\/$/, "");
-
+  const FILE_BASE = "http://13.210.0.69:8080";
   const normalizeUrl = (x) => {
     if (!x) return "";
     if (typeof x === "string") return x.trim();
@@ -103,7 +102,7 @@ export default function Details() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await api.get(`/achievements/${id}`);
+        const { data } = await api.get(`/api/achievements/${id}`);
         setDetail(data?.data || data);
       } finally {
         setLoading(false);
