@@ -96,13 +96,13 @@ export default function Details() {
   const toAbs = (u = "") => {
     const s = normalizeUrl(u);
     if (!s) return "";
-    if (/^https?:\/\//i.test(s)) return s; // 이미 절대URL
+    if (/^https?:\/\//i.test(s)) return s;
     return `${FILE_BASE}${s.startsWith("/") ? "" : "/"}${s}`;
   };
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await api.get(`/api/achievements/${id}`);
+        const { data } = await api.get(`/achievements/${id}`);
         setDetail(data?.data || data);
       } finally {
         setLoading(false);
