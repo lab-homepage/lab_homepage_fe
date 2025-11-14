@@ -191,7 +191,7 @@ export default function MembersAdmin() {
   const [preview, setPreview] = useState("");
   const [uploadPct, setUploadPct] = useState(0);
 
-  const FILE_BASE = process.env.REACT_APP_API_BASE_URL || "";
+  const FILE_BASE = "http://13.210.0.69:8080";
 
   const toImgSrc = (u) => {
     if (!u) return "/images/member/default.jpg";
