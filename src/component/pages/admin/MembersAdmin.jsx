@@ -191,19 +191,19 @@ export default function MembersAdmin() {
   const [preview, setPreview] = useState("");
   const [uploadPct, setUploadPct] = useState(0);
 
-  const FILE_BASE = process.env.REACT_APP_API_BASE_URL;
+  const FILE_BASE = process.env.REACT_APP_API_BASE_URL || "";
 
   const toImgSrc = (u) => {
     if (!u) return "/images/member/default.jpg";
     if (/^https?:\/\//i.test(u)) return u;
-    const base = FILE_BASE.replace(/\/$/, "");
+    const base = (FILE_BASE || "").replace(/\/$/, "");
     const path = u.startsWith("/") ? u : `/${u}`;
     return `${FILE_BASE}${path}`;
   };
 
   const fetchList = async () => {
     try {
-      const res = await api.get(`${FILE_BASE}/researchers`, {
+      const res = await api.get("/admin/researchers", {
         headers: { Accept: "application/json" },
         validateStatus: () => true,
       });
