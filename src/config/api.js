@@ -6,7 +6,7 @@ const baseURL =
     : process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
 
 const api = axios.create({
-  baseURL: baseURL.replace(/\/$/, ""), // 끝 슬래시 제거
+  baseURL: baseURL.replace(/\/$/, "") + "/api",
   withCredentials: false,
   headers: {
     Accept: "application/json",
