@@ -322,7 +322,7 @@ export default function AchievementsAdmin() {
   // --- 소식 목록 불러오기 함수 (GET /achievements) ---
   const fetchList = async () => {
     try {
-      const response = await api.get("/achievements");
+      const response = await api.get("/api/achievements");
       setList(response.data.data || response.data || []);
     } catch (err) {
       console.error("소식 목록 로딩 실패:", err);
@@ -359,7 +359,7 @@ export default function AchievementsAdmin() {
     const fetchItemAndEdit = async (id) => {
       try {
         // 소식 단건 조회 API 호출 (GET /achievements/{id} 가정)
-        const response = await api.get(`/achievements/${id}`);
+        const response = await api.get(`/api/achievements/${id}`);
         const item = response.data;
 
         if (item) {
@@ -447,12 +447,10 @@ export default function AchievementsAdmin() {
       };
 
       if (editing) {
-        // PUT: 소식 수정 (URL: /admin/achievements/{id})
-        await api.put(`/admin/achievements/${editing.id}`, fd, config);
+        await api.put(`/api/admin/achievements/${editing.id}`, fd, config);
         alert("수정되었습니다.");
       } else {
-        // POST: 소식 등록 (URL: /admin/achievements)
-        await api.post("/admin/achievements", fd, config);
+        await api.post("/api/admin/achievements", fd, config);
         alert("등록되었습니다.");
       }
 
@@ -473,7 +471,7 @@ export default function AchievementsAdmin() {
   const onDelete = async (id) => {
     if (!window.confirm("정말 삭제할까요?")) return;
     try {
-      await api.delete(`/admin/achievements/${id}`);
+      await api.delete(`/api/admin/achievements/${id}`);
       alert("삭제되었습니다.");
       fetchList();
       if (editing?.id === id) {

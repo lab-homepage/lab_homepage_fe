@@ -67,7 +67,7 @@ function News() {
     window.scrollTo(0, 0);
     (async () => {
       try {
-        const { data } = await api.get("/achievements");
+        const { data } = await api.get("/api/achievements");
         setNewsList(Array.isArray(data) ? data : []);
       } catch (e) {
         console.error("Failed to load achievements:", e);

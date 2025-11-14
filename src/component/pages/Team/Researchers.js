@@ -39,7 +39,7 @@ export default function Researchers() {
     const fetchMembers = async () => {
       try {
         console.log("[Researchers] baseURL =", api?.defaults?.baseURL);
-        let res = await api.get("/researchers", {
+        let res = await api.get("/api/researchers", {
           headers: { Accept: "application/json" },
           validateStatus: () => true, // 상태코드와 무관하게 데이터 확인
         });

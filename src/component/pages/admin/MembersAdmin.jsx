@@ -205,7 +205,7 @@ export default function MembersAdmin() {
     try {
       console.log("[MembersAdmin] baseURL =", api?.defaults?.baseURL);
 
-      const res = await api.get("/researchers", {
+      const res = await api.get("/api/researchers", {
         headers: { Accept: "application/json" },
         validateStatus: () => true,
       });
@@ -276,10 +276,10 @@ export default function MembersAdmin() {
     };
 
     if (editing?.id) {
-      await api.put(`/admin/researchers/${editing.id}`, fd, config);
+      await api.put(`/api/admin/researchers/${editing.id}`, fd, config);
       alert("멤버 정보가 수정되었습니다.");
     } else {
-      await api.post("/admin/researchers", fd, config);
+      await api.post("/api/admin/researchers", fd, config);
       alert("새 멤버가 등록되었습니다.");
     }
 
@@ -317,7 +317,7 @@ export default function MembersAdmin() {
 
   const onDelete = async (id) => {
     if (!window.confirm("정말 삭제할까요?")) return;
-    await api.delete(`/admin/researchers/${id}`);
+    await api.delete(`/api/admin/researchers/${id}`);
     await fetchList();
   };
 
