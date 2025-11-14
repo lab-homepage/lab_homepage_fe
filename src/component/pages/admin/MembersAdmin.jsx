@@ -262,8 +262,6 @@ export default function MembersAdmin() {
     // 파일/URL 처리 (중복 append 방지)
     if (file) {
       fd.append("file", file); // @RequestPart("file")
-    } else if (editing?.photoUrl) {
-      fd.append("photoUrl", editing.photoUrl); // 유지 신호(서버 구현에 따라 생략 가능)
     }
 
     const config = {
