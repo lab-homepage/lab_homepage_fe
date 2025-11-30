@@ -27,7 +27,7 @@ function News() {
   const pickFirstImage = (item) => {
     const candidates = [];
 
-    // 1) 가장 흔한 케이스: 문자열 배열
+    // 1) 배열 형태
     if (Array.isArray(item?.imageUrl)) candidates.push(...item.imageUrl);
     if (Array.isArray(item?.imageurl)) candidates.push(...item.imageurl);
     if (Array.isArray(item?.images)) candidates.push(...item.images);
@@ -38,7 +38,7 @@ function News() {
     if (typeof item?.image === "string") candidates.push(item.image);
     if (typeof item?.cover === "string") candidates.push(item.cover);
 
-    // 3) 객체 배열(예: [{url:"/path"}, {imageUrl:"..."}])
+    // 3) 객체 배열
     const flattened = [];
     for (const c of candidates) {
       if (typeof c === "string") flattened.push(c);
@@ -60,7 +60,6 @@ function News() {
     const d = item?.publishedAt || item?.createdAt || item?.updatedAt || "";
     const dt = d ? new Date(d) : null;
     return dt && !isNaN(dt) ? String(dt.getFullYear()) : "";
-    // 필요하면 월/일까지 보여주고 싶을 때 여기서 포맷 추가
   };
 
   useEffect(() => {
@@ -68,8 +67,11 @@ function News() {
     (async () => {
       try {
         const { data } = await api.get("/api/achievements");
-        setNewsList(Array.isArray(data) ? data : []);
-        // 최신 글이 가장 위로 오게 정렬
+
+        //1) 배열로 변환
+        const arr = Array.isArray(data) ? [...data] : [];
+
+        //2) 최신 글 맨 위로 정렬
         arr.sort((a, b) => {
           const dateA = new Date(
             a.publishedAt || a.createdAt || a.updatedAt || 0
@@ -77,7 +79,22 @@ function News() {
           const dateB = new Date(
             b.publishedAt || b.createdAt || b.updatedAt || 0
           );
-          return dateB - dateA;
+
+          // 날짜가 있으면 날짜 기준 내림차순
+          if (
+            !isNaN(dateA) &&
+            !isNaN(dateB) &&
+            dateA.getTime() !== dateB.getTime()
+          ) {
+            return dateB - dateA;
+          }
+
+          // 날짜가 없으면 ID 기준 내림차순
+          if (typeof a.id === "number" && typeof b.id === "number") {
+            return b.id - a.id;
+          }
+
+          return 0;
         });
         setNewsList(arr);
       } catch (e) {
