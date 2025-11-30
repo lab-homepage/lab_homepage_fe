@@ -70,7 +70,15 @@ function News() {
         const { data } = await api.get("/api/achievements");
         setNewsList(Array.isArray(data) ? data : []);
         // 최신 글이 가장 위로 오게 정렬
-        arr.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        arr.sort((a, b) => {
+          const dateA = new Date(
+            a.publishedAt || a.createdAt || a.updatedAt || 0
+          );
+          const dateB = new Date(
+            b.publishedAt || b.createdAt || b.updatedAt || 0
+          );
+          return dateB - dateA;
+        });
         setNewsList(arr);
       } catch (e) {
         console.error("Failed to load achievements:", e);
