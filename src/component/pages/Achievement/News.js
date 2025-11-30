@@ -69,6 +69,9 @@ function News() {
       try {
         const { data } = await api.get("/api/achievements");
         setNewsList(Array.isArray(data) ? data : []);
+        // 최신 글이 가장 위로 오게 정렬
+        arr.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setNewsList(arr);
       } catch (e) {
         console.error("Failed to load achievements:", e);
         setNewsList([]);
@@ -131,7 +134,6 @@ function News() {
       {/* 페이지네이션 바 */}
       {totalPages >= 1 && (
         <nav className="pagination" aria-label="news pagination">
-          {/* 왼쪽 컨트롤: 처음/이전 그룹 */}
           <button
             className="page-btn"
             onClick={goFirst}
