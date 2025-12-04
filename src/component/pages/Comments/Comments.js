@@ -8,30 +8,36 @@ export default function Comments() {
     window.scrollTo(0, 0);
   }, []); /*페이지 이동 시 위로 고정*/
 
-  for (const [k, v] of formData.entries()) {
-    console.log(k, "=>", v);
-  } // 디버그용 폼 데이터 출력
+  const onSubmit = (event) => {
+    event.preventDefault();
 
-  const onSubmit = async (event) => {
-    event.preventDefault(); /*기본 폼 제출 방지*/
-    setResult("보내는 중....");
     const formData = new FormData(event.target);
+    const name = formData.get("name");
+    const studentID = formData.get("studentID");
+    const email = formData.get("email");
+    const message = formData.get("message");
 
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData,
-    }); /* formData를 사용해서 AJAX 요청을 보냄*/
+    const to = "sdkim.mie@sch.ac.kr";
 
-    const data = await response.json();
+    const subject = `[연구실 문의] ${name} (${studentID}) 학생 문의`;
+    const body =
+      `교수님 안녕하세요.\n\n` +
+      `아래와 같이 문의드립니다.\n\n` +
+      `이름: ${name}\n` +
+      `학번: ${studentID}\n` +
+      `회신 이메일: ${email}\n\n` +
+      `문의 내용:\n${message}\n\n` +
+      `감사합니다.`;
 
-    if (data.success) {
-      setResult("전송이 완료되었습니다.");
-      event.target.reset(); /*폼을 전송후 다시 리셋*/
-      window.scrollTo(0, 0);
-    } else {
-      console.log("Error", data);
-      setResult(data.message);
-    }
+    const mailtoLink =
+      `mailto:${to}` +
+      `?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(body)}`;
+
+    // 학생 PC/브라우저에 설정된 메일 프로그램(Outlook, Gmail 등) 열기
+    window.location.href = mailtoLink;
+
+    setResult("메일 작성 창이 열렸습니다. 메일 창에서 전송을 완료해주세요.");
   };
   return (
     <div>
@@ -66,11 +72,6 @@ export default function Comments() {
         </div>
         <div className="contact-form">
           <form onSubmit={onSubmit}>
-            <input
-              type="hidden"
-              name="access_key"
-              value="1f6a5173-8b4c-440a-92a1-cf2a7a0edbed"
-            />
             <label>이름 </label>
             <input
               type="text"
