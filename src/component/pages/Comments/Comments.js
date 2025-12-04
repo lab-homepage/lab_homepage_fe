@@ -8,17 +8,14 @@ export default function Comments() {
     window.scrollTo(0, 0);
   }, []); /*페이지 이동 시 위로 고정*/
 
+  for (const [k, v] of formData.entries()) {
+    console.log(k, "=>", v);
+  } // 디버그용 폼 데이터 출력
+
   const onSubmit = async (event) => {
     event.preventDefault(); /*기본 폼 제출 방지*/
     setResult("보내는 중....");
     const formData = new FormData(event.target);
-
-    const apiKey = process.env.REACT_APP_API_KEY;
-
-    formData.append(
-      "access_key",
-      apiKey
-    ); /* append 메서드를 통해 formData 객체에 새로운 필드 추가*/
 
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
@@ -69,6 +66,11 @@ export default function Comments() {
         </div>
         <div className="contact-form">
           <form onSubmit={onSubmit}>
+            <input
+              type="hidden"
+              name="access_key"
+              value="1f6a5173-8b4c-440a-92a1-cf2a7a0edbed"
+            />
             <label>이름 </label>
             <input
               type="text"
